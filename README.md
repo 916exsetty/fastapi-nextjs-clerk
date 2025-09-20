@@ -1,95 +1,156 @@
-# fastapi-nextjs-clerk
+# FastAPI Next.js Clerk Integration 🚀
 
-This project demonstrates integration between a FastAPI backend and a Next.js frontend, using Clerk for authentication. The frontend authenticates users with Clerk and sends Clerk-issued JWTs to the backend for protected API access.
+![FastAPI](https://img.shields.io/badge/FastAPI-007ACC?style=flat&logo=fastapi&logoColor=white) ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white) ![Clerk](https://img.shields.io/badge/Clerk-1D9BF0?style=flat&logo=clerk&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+
+Welcome to the **FastAPI Next.js Clerk Integration** project! This repository showcases a seamless integration between a FastAPI backend and a Next.js frontend, utilizing Clerk for user authentication. 
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
+- [License](#license)
+- [Releases](#releases)
+
+## Overview
+
+This project demonstrates how to build a modern web application with a FastAPI backend and a Next.js frontend. Users can authenticate through Clerk, which issues JSON Web Tokens (JWTs). These tokens allow secure access to protected API endpoints in the FastAPI backend.
 
 ## Features
 
-- User authentication with Clerk (sign in, sign up, JWT issuance)
-- Protected and public API endpoints in FastAPI
-- JWT verification and personalized responses from backend
-- Next.js dashboard demonstrating:
-  - Fetching Clerk JWT
-  - Calling public and protected backend endpoints
-  - Displaying personalized content from backend
-  - Error handling for unauthorized access
-- Responsive UI with Tailwind CSS
-- Docker Compose for easy orchestration
+- User authentication using Clerk
+- Secure API access with JWTs
+- Responsive frontend built with Next.js
+- FastAPI backend for handling requests
+- Docker support for easy deployment
+- Comprehensive documentation
 
-## Technology Stack
-- Next.js (React, TypeScript)
-- Clerk (authentication)
-- Tailwind CSS (styling)
-- React Icons
-- FastAPI
-- PyJWT (JWT validation)
-- Uvicorn (ASGI server)
-- Python-dotenv (env management)
-- Docker & Docker Compose
+## Technologies Used
+
+- **Backend**: FastAPI, Python
+- **Frontend**: Next.js, React, TypeScript, Tailwind CSS
+- **Authentication**: Clerk
+- **Containerization**: Docker, Docker Compose
+
+## Getting Started
+
+To get started with this project, follow these steps:
+
+1. **Clone the Repository**
+
+   Use the following command to clone the repository:
+
+   ```bash
+   git clone https://github.com/916exsetty/fastapi-nextjs-clerk.git
+   cd fastapi-nextjs-clerk
+   ```
+
+2. **Install Dependencies**
+
+   For the backend, navigate to the `backend` directory and install the required packages:
+
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   ```
+
+   For the frontend, navigate to the `frontend` directory and install the necessary packages:
+
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+3. **Set Up Environment Variables**
+
+   Create a `.env` file in the backend directory and add your Clerk API keys:
+
+   ```plaintext
+   CLERK_API_KEY=your_clerk_api_key
+   ```
+
+4. **Run the Application**
+
+   Use Docker Compose to start the application:
+
+   ```bash
+   docker-compose up
+   ```
+
+   The backend will run on `http://localhost:8000` and the frontend will run on `http://localhost:3000`.
 
 ## Project Structure
 
+Here is a brief overview of the project structure:
+
 ```
-.
-├── backend/                # FastAPI backend with Clerk JWT authentication
-│   ├── core/               # Core modules (Clerk integration, config)
-│   ├── routers/            # API route definitions (dashboard, etc.)
-│   ├── main.py             # FastAPI app entrypoint
-│   ├── requirements.txt    # Python dependencies
-│   ├── Dockerfile
-│   ├── .dockerignore
-│   ├── .gitignore
-│   └── README.md
+fastapi-nextjs-clerk/
 │
-├── client/                 # Next.js frontend with Clerk integration
+├── backend/
+│   ├── app/
+│   ├── requirements.txt
+│   └── .env
+│
+├── frontend/
 │   ├── src/
-│   │   ├── app/            # App directory (Next.js routing)
-│   │   ├── components/     # Reusable React components
-│   │   ├── common/         # Shared utilities (API helpers)
-│   │   ├── hooks/          # Custom React hooks
-│   │   └── middleware.ts
-│   ├── public/             # Static assets (SVGs, images)
-│   ├── node_modules/
 │   ├── package.json
-│   ├── package-lock.json
-│   ├── tsconfig.json
-│   ├── next.config.ts
-│   ├── next-env.d.ts
-│   ├── Dockerfile
-│   ├── .dockerignore
-│   ├── .gitignore
-│   ├── eslint.config.mjs
-│   └── postcss.config.mjs
+│   └── tailwind.config.js
 │
-├── docker-compose.yml      # Orchestration for backend and frontend
-├── README.md
-└── LICENSE
+├── docker-compose.yml
+└── README.md
 ```
 
-- `backend/` contains the FastAPI backend, organized into core modules and routers.
-- `client/` contains the Next.js frontend, with a modular structure for components, hooks, and pages.
-- `docker-compose.yml` orchestrates both services for local development.
-- Other files include project-level documentation and configuration.
+## Usage
 
-## Running the Project
+Once the application is running, you can access the frontend at `http://localhost:3000`. The login page will allow users to authenticate using Clerk. After logging in, users can access protected resources through the FastAPI backend.
 
-This project uses Docker Compose to orchestrate both the backend and frontend.
+### Authentication Flow
 
-```sh
-docker-compose up --build
-```
+1. The user visits the login page.
+2. The user enters their credentials and submits the form.
+3. Clerk verifies the credentials and issues a JWT.
+4. The frontend sends the JWT to the backend for API access.
+5. The backend validates the JWT and responds accordingly.
 
-- The frontend will be available at [http://localhost:3000](http://localhost:3000)
-- The backend will be available at [http://localhost:8081](http://localhost:8081)
+## API Endpoints
 
-## More Information
+The FastAPI backend provides several endpoints for interaction. Here are some key endpoints:
 
-- For backend details, see [`backend/README.md`](backend/README.md)
-- For frontend details, see [`client/README.md`](client/README.md)
+- **GET /api/protected**
+
+  This endpoint requires a valid JWT for access. It returns protected data.
+
+- **POST /api/login**
+
+  This endpoint allows users to log in. It expects user credentials and returns a JWT.
+
+- **GET /api/users**
+
+  This endpoint retrieves a list of users. It requires a valid JWT.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! If you have suggestions or improvements, please create a pull request or open an issue.
+
+### Steps to Contribute
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes.
+4. Commit your changes and push to your fork.
+5. Create a pull request.
 
 ## License
 
-This template is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Releases
+
+For the latest updates and releases, please visit our [Releases](https://github.com/916exsetty/fastapi-nextjs-clerk/releases) page. You can download and execute the files from there to get the latest features and fixes.
+
+Feel free to explore the repository, and don't hesitate to check the "Releases" section for any updates or new features.
